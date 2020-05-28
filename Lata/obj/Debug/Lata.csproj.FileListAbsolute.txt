@@ -1,0 +1,6 @@
+D:\Desarrollos\MaquinaExpendedora\Lata\bin\Debug\Lata.dll
+D:\Desarrollos\MaquinaExpendedora\Lata\bin\Debug\Lata.pdb
+D:\Desarrollos\MaquinaExpendedora\Lata\obj\Debug\Lata.csprojAssemblyReference.cache
+D:\Desarrollos\MaquinaExpendedora\Lata\obj\Debug\Lata.csproj.CoreCompileInputs.cache
+D:\Desarrollos\MaquinaExpendedora\Lata\obj\Debug\Lata.dll
+D:\Desarrollos\MaquinaExpendedora\Lata\obj\Debug\Lata.pdb

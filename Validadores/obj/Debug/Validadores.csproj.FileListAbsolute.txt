@@ -1,0 +1,6 @@
+D:\Desarrollos\MaquinaExpendedora\Validadores\bin\Debug\Validadores.dll
+D:\Desarrollos\MaquinaExpendedora\Validadores\bin\Debug\Validadores.pdb
+D:\Desarrollos\MaquinaExpendedora\Validadores\obj\Debug\Validadores.csproj.CoreCompileInputs.cache
+D:\Desarrollos\MaquinaExpendedora\Validadores\obj\Debug\Validadores.dll
+D:\Desarrollos\MaquinaExpendedora\Validadores\obj\Debug\Validadores.pdb
+D:\Desarrollos\MaquinaExpendedora\Validadores\obj\Debug\Validadores.csprojAssemblyReference.cache
