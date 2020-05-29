@@ -8,7 +8,60 @@ namespace Validadores
 {
     public static class Validadores
     {
-        //devuelve si la validacion está bien o no
+
+        // AGREGAR VALIDACION QUE NO SEA TEXTO
+        public static double ValidaDouble()
+        {
+            //Valido que sea mayor que cero porque no se usan numeros negativos
+            
+            double c = double.Parse(Console.ReadLine());
+
+            do
+            {
+                if (c > 0)
+                {
+                    return c;
+                    
+                }
+                else
+                {
+                    Console.WriteLine("El valor es incorrecto, por favor ingrese nuevamente");
+                    c = double.Parse(Console.ReadLine());
+                    
+                }
+            }
+            while (c <= 0);
+
+            return 0;
+
+        }
+
+        // AGREGAR VALIDACION QUE NO SEA TEXTO
+        public static int ValidaInt()
+        {
+            //Valido que sea mayor que cero porque no se usan numeros negativos
+            int c = int.Parse(Console.ReadLine());
+
+            do
+            {
+                if (c > 0)
+                {
+                    return c;
+
+                }
+                else
+                {
+                    Console.WriteLine("El numero ingresado es incorrecto, por favor ingrese nuevamente");
+                    c = int.Parse(Console.ReadLine());
+
+                }
+            }
+            while (c <= 0);
+
+            return 0;
+
+        }
+
         public static bool EsOpcionValida(string input, string opcionesValidas)
         {
             // manejamos expciones
@@ -61,7 +114,9 @@ namespace Validadores
         public static string ObtenerNombreBebida(string opcion)
 
         {
-            switch (opcion.Substring(1,2))
+                                
+
+            switch (opcion.ToUpper().Substring(0, 2))
             {
                 case "CO":
                     return "Coca Cola";
@@ -86,7 +141,10 @@ namespace Validadores
         public static string ObtenerSaborBebida(string opcion)
 
         {
-            switch (opcion.Substring(3, 1))
+
+            switch (opcion.Substring(2, 1).ToUpper())
+
+
             {
                 case "1":
                     return "Regular";
@@ -100,5 +158,25 @@ namespace Validadores
             }
 
         }
+    
+        public static double ObtenerPrecioBebida()
+        {
+            double precio = 0;
+            Console.WriteLine("¿Cual es el precio de la bebida que va a ingresar?");
+            precio = ValidaDouble();
+            return precio;
+
+        }
+
+        public static double ObtenerVolumenBebida()
+        {
+            double volumen = 0;
+            Console.WriteLine("¿Cual es el volumen de la bebida que va a ingresar? \n" +
+                              "Por favor ingresarlo en Mililitros");
+            volumen = ValidaDouble();
+            return volumen;
+
+        }
+
     }
 }

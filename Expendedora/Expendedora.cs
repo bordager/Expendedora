@@ -31,9 +31,9 @@ namespace Expendedora
 
 
         public List<Lata.Lata> listadelata { get => _lata; }
-        public string proveedor { get => _proveedor; }
-        public int capacidad { get => _capacidad; }
-        public double dinero { get => _dinero; }
+        public string proveedor { get => _proveedor; set => _proveedor = value; }
+        public int capacidad { get => _capacidad;  set => _capacidad = value; }
+        public double dinero { get => _dinero; set => _dinero = value; }
         public bool encendida { get => _encendida; set => _encendida = value; }
 
 
@@ -61,6 +61,39 @@ namespace Expendedora
             {
                 encendida = true;
             }
+
+        }
+
+
+        //Este metodo emula que se inicia la maquina por primera vez ya que no hay persistencia de
+        // los datos en el tiempo como para tener cargados los datos del la maquina
+        public void iniciarmaquina()
+        {
+            bool continuar = false;
+
+             Console.WriteLine("¿A que empresa pertenece esta maquina?");
+             proveedor = Console.ReadLine();
+        
+
+            continuar = false;
+
+            do
+            {
+                try
+            {
+                Console.WriteLine("¿Cual es la capacidad de esta maquina?");
+                capacidad = Validadores.Validadores.ValidaInt();
+                continuar = true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error durante la ejecución del comando. Por favor intente nuevamente. Mensaje: " + ex.Message);
+            }
+            } while (continuar == false);
+
+
+            dinero = 0;
 
         }
 
@@ -102,10 +135,12 @@ namespace Expendedora
                     {codigo = bebidaseleccionada, 
                      nombre = Validadores.Validadores.ObtenerNombreBebida(bebidaseleccionada),
                      sabor = Validadores.Validadores.ObtenerSaborBebida(bebidaseleccionada), 
-                     precio, //VER PORQUE NO ME TOMA PRECIO
-                     volumen  //VER PORQUE NO ME TOMA VOLUMEN
+                     precio = Validadores.Validadores.ObtenerPrecioBebida(), 
+                     volumen = Validadores.Validadores.ObtenerVolumenBebida()
                     });
+
                     Console.WriteLine("Lata Agregada");
+                    Console.WriteLine("La maquina expendedora tiene " + listadelata.Count() + " lata/s");
                     flag = false;
                 }
             }
@@ -113,6 +148,35 @@ namespace Expendedora
 
         }
 
+        
+        public string getbalance()
+        {
+
+            return ("La maquina expendedora tiene $" + dinero + "\nLa maquina expendedora tiene " +
+            listadelata.Count() + " lata/s");
+
+
+        }
+
+        public bool estavacia()
+        {
+
+            if (listadelata.Count() == 0)
+
+            { return true; }
+
+            else
+
+            { return false; }
+
+        }
+
+        public Lata.Lata extraelata(string codigo, double plata)
+        {
+            
+            return algo
+
+        }
 
     }
 }

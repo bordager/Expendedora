@@ -53,6 +53,10 @@
       <Project>{48FDA589-868A-4B0B-A790-4C3CAE413314}</Project>
       <Name>Expendedora</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lata\Lata.csproj">
+      <Project>{33A19C34-2734-4972-AFCE-28B23548A3FC}</Project>
+      <Name>Lata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Validadores\Validadores.csproj">
       <Project>{2CA979C3-9373-43EE-B5EB-28A4864004BE}</Project>
       <Name>Validadores</Name>
