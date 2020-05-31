@@ -23,7 +23,7 @@ namespace Lata
 
     public double getprecioporlitro()
         {
-            return 0.99;
+            return 1000 / precio * volumen;
         }
 
     }

@@ -15,7 +15,6 @@ namespace Expendedora
         public const string opciones = ("CO1 - Coca Cola Regular \nCO2 - Coca Cola Zero \nSP1 - Sprite Regular \n" +
                             "SP2 - Sprite Zero \nFA1 - Fanta Regular \nFA2 - Fanta Zero \n" +
                             "Haga una consulta de stock para saber que bebidas contiene este maquina\n" +
-                            "X - Salir" +
                             " ");
         public const string opcionesvalidasbebidas = ("CO1CO2SP1SP2FA1FA2");
 
@@ -67,22 +66,18 @@ namespace Expendedora
 
         //Este metodo emula que se inicia la maquina por primera vez ya que no hay persistencia de
         // los datos en el tiempo como para tener cargados los datos del la maquina
-        public void iniciarmaquina()
+        public void iniciarmaquina(string prov, int cap, double din)
         {
             bool continuar = false;
-
-             Console.WriteLine("¿A que empresa pertenece esta maquina?");
-             proveedor = Console.ReadLine();
+            
+            proveedor = prov;
         
-
-            continuar = false;
-
             do
             {
                 try
             {
-                Console.WriteLine("¿Cual es la capacidad de esta maquina?");
-                capacidad = Validadores.Validadores.ValidaInt();
+
+                capacidad = cap;
                 continuar = true;
 
             }
@@ -92,8 +87,26 @@ namespace Expendedora
             }
             } while (continuar == false);
 
+            continuar = false;
 
-            dinero = 0;
+            do
+            {
+                try
+                {
+
+                    dinero = din;
+                    continuar = true;
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error durante la ejecución del comando. Por favor intente nuevamente. Mensaje: " + ex.Message);
+                }
+            } while (continuar == false);
+
+
+            Console.Clear();
+
 
         }
 
@@ -123,28 +136,40 @@ namespace Expendedora
 
         {
             bool flag = true;
-
-            do
+            if (listadelata.Count < capacidad)
             {
-                Console.WriteLine("¿Que bebida desea agregar? \n");
-                mostraropciones();
-                string bebidaseleccionada = Console.ReadLine();
-                if (Validadores.Validadores.EsOpcionValidaBebida(bebidaseleccionada, opcionesvalidasbebidas))
+                do
                 {
-                    listadelata.Add(new Lata.Lata() 
-                    {codigo = bebidaseleccionada, 
-                     nombre = Validadores.Validadores.ObtenerNombreBebida(bebidaseleccionada),
-                     sabor = Validadores.Validadores.ObtenerSaborBebida(bebidaseleccionada), 
-                     precio = Validadores.Validadores.ObtenerPrecioBebida(), 
-                     volumen = Validadores.Validadores.ObtenerVolumenBebida()
-                    });
+                    Console.WriteLine("¿Que bebida desea agregar? \n");
+                    mostraropciones();
+                    string bebidaseleccionada = Console.ReadLine();
+                    if (Validadores.Validadores.EsOpcionValidaBebida(bebidaseleccionada, opcionesvalidasbebidas))
+                    {
+                        double pre = Validadores.Validadores.ObtenerPrecioBebida();
+                        double vol = Validadores.Validadores.ObtenerVolumenBebida();
 
-                    Console.WriteLine("Lata Agregada");
-                    Console.WriteLine("La maquina expendedora tiene " + listadelata.Count() + " lata/s");
-                    flag = false;
+                        listadelata.Add(new Lata.Lata()
+                        {
+                            codigo = bebidaseleccionada,
+                            nombre = Validadores.Validadores.ObtenerNombreBebida(bebidaseleccionada),
+                            sabor = Validadores.Validadores.ObtenerSaborBebida(bebidaseleccionada),
+                            precio = pre,
+                            volumen = vol
+                        });
+
+
+                        Console.WriteLine("Lata Agregada");
+                        Console.WriteLine("La maquina expendedora tiene " + listadelata.Count() + " lata/s");
+                        flag = false;
+                    }
                 }
+                while (flag == true);
             }
-            while (flag == true);
+            else
+            {
+                Console.WriteLine("La expendedora esta llena");
+                Console.WriteLine("La maquina expendedora tiene " + listadelata.Count() + " lata/s");
+            }
 
         }
 
@@ -171,10 +196,44 @@ namespace Expendedora
 
         }
 
-        public Lata.Lata extraelata(string codigo, double plata)
+
+
+        public Lata.Lata extraerlata(string codigo, double dinerousuario)
         {
-            
-            return algo
+            bool controldinero = true;
+
+            foreach (Lata.Lata lata in listadelata)
+            {
+                controldinero = true;
+                if (lata.codigo == codigo && lata.precio <= dinerousuario)
+                {
+                    
+                    double vuelto = dinerousuario - lata.precio;
+                    dinero = dinero + lata.precio;
+
+                    listadelata.Remove(lata);
+                    Console.WriteLine("Entregando " + lata.nombre + " de " + lata.volumen + " mililitros");
+                    Console.WriteLine("Su vuelto es $" + vuelto);
+                    return lata;
+                }
+                if (lata.codigo == codigo && lata.precio > dinero)
+                {
+                    controldinero = false;
+                }
+
+            }
+
+            if (controldinero == false) 
+            {
+                Console.WriteLine("El dinero ingresado no alcanza para retirar la lata");
+                return null;
+            }
+            if (controldinero == true)
+            {
+                Console.WriteLine("No contamos con stock de esa lata");
+            }
+
+            return null;
 
         }
 
